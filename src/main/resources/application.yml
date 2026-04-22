@@ -1,0 +1,45 @@
+spring:
+  application:
+    name: claim-ai-backend
+
+  datasource:
+    url: jdbc:h2:mem:claimaidb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: 
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  # CORS allowed for frontend
+  mvc:
+    cors:
+      allowed-origins: "*"
+
+server:
+  port: 8080
+
+# OpenAPI / Swagger settings
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    enabled: true
+
+# Logging
+logging:
+  level:
+    com.claimai: DEBUG
+    org.springframework.web: INFO
+
+# Custom properties for AI service (can be extended later)
+ai:
+  service:
+    enabled: true
+    mock-response: true
