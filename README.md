@@ -1,22 +1,29 @@
 # ClaimAI Backend
 
-Spring Boot microservices backend for the AI-Powered Claims Processing Platform.
+Spring Boot backend for the AI-Powered Claims Processing Platform.
 
 ## Features
-- RESTful APIs for claim submission and processing
-- AI integration layer for claim analysis and fraud detection
+- REST APIs for claim CRUD operations
+- AI integration endpoint for claim analysis and fraud detection
 - Event-driven architecture with RabbitMQ/Kafka
-- Secure authentication with OAuth2/JWT
-- Integration with MuleSoft / external systems
-- Docker + Kubernetes ready (AKS)
+- Secure JWT + OAuth2 authentication
+- Docker-ready for Azure AKS deployment
 
 ## Tech Stack
 - Java 17
 - Spring Boot 3.x
 - Spring Data JPA + Hibernate
-- Spring Security + OAuth2
-- RabbitMQ / Kafka
+- Spring Security + JWT
+- OpenAPI / Swagger
 - Docker
-- OpenAPI/Swagger
 
-## Project Structure
+## Project Structure (Planned)
+- `controller/` - REST controllers
+- `service/` - Business logic + AI service layer
+- `repository/` - JPA repositories
+- `model/` - Entity classes
+- `config/` - Security & Swagger config
+
+This backend is designed to work with the [ClaimAI Frontend](https://github.com/apurupa810-dotcom/claim-ai-platform).
+
+Built to demonstrate real enterprise patterns used in banking and insurance claims systems.
