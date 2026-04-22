@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  claim-ai-backend:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev
+    restart: unless-stopped
+
+  # Optional: H2 Database (can be replaced with PostgreSQL later)
+  h2-db:
+    image: oscarfonts/h2
+    ports:
+      - "1521:1521"
+      - "8081:8081"  # H2 console
+    environment:
+      - H2_OPTIONS=-ifNotExists
+    volumes:
+      - h2-data:/opt/h2-data
+
+volumes:
+  h2-data:
