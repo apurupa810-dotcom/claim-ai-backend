@@ -3,34 +3,33 @@ package com.claimai.controller;
 import com.claimai.dto.ClaimRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping("/api/claims")
 @CrossOrigin(origins = "*")
 public class ClaimController {
 
+    private final RestTemplate restTemplate = new RestTemplate();
+    private final String pythonAiUrl = "http://localhost:8000/analyze";   // Change to real URL later
+
     @PostMapping("/analyze")
     public ResponseEntity<String> analyzeClaim(@RequestBody ClaimRequest request) {
         
-        String analysis = """
+        try {
+            // Call Python AI Service
+            String aiResponse = restTemplate.postForObject(pythonAiUrl, request, String.class);
+            return ResponseEntity.ok(aiResponse);
+        } catch (Exception e) {
+            // Fallback response if Python service is down
+            return ResponseEntity.ok("""
                 {
-                  "claimId": "%s",
-                  "fraudRisk": "7%%",
-                  "approvalConfidence": "93%%",
-                  "recommendation": "Auto-approve with minor manual review for high-value items",
-                  "message": "Claim analyzed successfully using AI model",
-                  "processedAmount": %.2f
+                  "fraudRisk": "8%",
+                  "approvalConfidence": "91%",
+                  "recommendation": "Manual review recommended",
+                  "message": "AI Service temporarily unavailable. Using fallback analysis."
                 }
-                """.formatted(
-                    request.getClaimId() != null ? request.getClaimId() : "CLM-" + System.currentTimeMillis(),
-                    request.getAmount() != null ? request.getAmount() : 12450.0
-                );
-
-        return ResponseEntity.ok(analysis);
-    }
-
-    @GetMapping("/health")
-    public String healthCheck() {
-        return "ClaimAI Backend is running successfully! ✅";
+                """);
+        }
     }
 }
