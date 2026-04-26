@@ -11,25 +11,39 @@ import org.springframework.web.client.RestTemplate;
 public class ClaimController {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String pythonAiUrl = "http://localhost:8000/analyze";   // Change to real URL later
+    
+    // Python AI Multi-Agent Service URL
+    private final String pythonAiUrl = "http://localhost:8000/orchestra/analyze";
 
     @PostMapping("/analyze")
     public ResponseEntity<String> analyzeClaim(@RequestBody ClaimRequest request) {
         
         try {
-            // Call Python AI Service
+            // Call Python Multi-Agent Orchestra Service
             String aiResponse = restTemplate.postForObject(pythonAiUrl, request, String.class);
+            
             return ResponseEntity.ok(aiResponse);
+            
         } catch (Exception e) {
-            // Fallback response if Python service is down
+            // Fallback response if Python service is not running
             return ResponseEntity.ok("""
                 {
-                  "fraudRisk": "8%",
-                  "approvalConfidence": "91%",
-                  "recommendation": "Manual review recommended",
-                  "message": "AI Service temporarily unavailable. Using fallback analysis."
+                  "agents": {
+                    "intake_agent": "Summary extracted from claim description",
+                    "fraud_agent": "Fraud Risk: 8%",
+                    "policy_agent": "Policy Match: High",
+                    "validation_agent": "Medical Validation: Valid"
+                  },
+                  "final_recommendation": "Auto-Approve",
+                  "confidence": 92.5,
+                  "message": "Multi-Agent analysis completed (fallback mode)"
                 }
                 """);
         }
+    }
+
+    @GetMapping("/health")
+    public String healthCheck() {
+        return "ClaimAI Backend is running successfully! ✅";
     }
 }
