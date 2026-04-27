@@ -1,34 +1,53 @@
 # ClaimAI Backend
 
-Spring Boot backend for the **AI-Powered Intelligent Claims Platform**.
+**Java Spring Boot Microservice** for the ClaimAI Multi-Agent AI Claims Platform.
 
-This backend is designed to work with the [ClaimAI Frontend](https://github.com/apurupa810-dotcom/claim-ai-platform).
+This is the main backend service responsible for handling claims, orchestrating AI agents, and managing business logic.
 
-## Features
-- RESTful APIs for claim submission, retrieval and processing
-- AI integration layer for claim analysis and fraud detection
-- Event-driven architecture using RabbitMQ/Kafka
-- Secure authentication with JWT + OAuth2
-- Docker-ready for deployment on Azure Kubernetes Service (AKS)
-- OpenAPI documentation
+## 🚀 Features
 
-## Technology Stack
+- RESTful APIs for claim analysis
+- Integration with **Python Multi-Agent AI Service**
+- Layered Architecture (Controller → Service → DTO)
+- Security with CORS & JWT-ready setup
+- Docker + docker-compose support
+- OpenAPI / Swagger Documentation
+- H2 Database (for development)
+
+## Tech Stack
+
 - **Java 17**
-- **Spring Boot 3.x**
-- **Spring Data JPA + Hibernate**
-- **Spring Security + JWT**
-- **RabbitMQ / Kafka**
+- **Spring Boot 3.3**
+- **Spring Data JPA**
+- **Spring Security**
+- **REST API + DTO Pattern**
 - **Docker**
-- **OpenAPI / Swagger**
+- **Swagger UI**
 
 ## Project Structure
 src/main/java/com/claimai/
 ├── ClaimAiApplication.java
-├── controller/
-├── service/
-├── repository/
-├── model/
 ├── config/
+│   ├── SecurityConfig.java
+│   └── SwaggerConfig.java
+├── controller/
+│   └── ClaimController.java
 ├── dto/
-├── exception/
-└── util/
+│   ├── ClaimRequest.java
+│   └── ClaimResponse.java
+├── service/
+│   └── ClaimService.java
+└── ...
+
+## How to Run Locally
+
+### Using Docker Compose (Recommended)
+docker-compose up --build
+##Or Run with Maven
+```bash
+mvn spring-boot:run
+##api endpoints
+Method,Endpoint,Description
+POST,/api/claims/analyze,Analyze claim with AI Agents
+GET,/api/claims/health,Health check
+GET,/swagger-ui.html,Swagger UI Documentation
