@@ -1,53 +1,65 @@
 # ClaimAI Backend
 
-**Java Spring Boot Microservice** for the ClaimAI Multi-Agent AI Claims Platform.
+Java Spring Boot Microservice for the ClaimAI Multi-Agent Platform.
 
-This is the main backend service responsible for handling claims, orchestrating AI agents, and managing business logic.
+## Features
 
-## 🚀 Features
-
-- RESTful APIs for claim analysis
-- Integration with **Python Multi-Agent AI Service**
-- Layered Architecture (Controller → Service → DTO)
-- Security with CORS & JWT-ready setup
-- Docker + docker-compose support
-- OpenAPI / Swagger Documentation
-- H2 Database (for development)
+- REST APIs for claim processing
+- Integration with Python AI Multi-Agent Service
+- Layered Architecture (Controller, Service, DTO)
+- Docker & docker-compose support
+- Swagger UI Documentation
 
 ## Tech Stack
 
-- **Java 17**
-- **Spring Boot 3.3**
-- **Spring Data JPA**
-- **Spring Security**
-- **REST API + DTO Pattern**
-- **Docker**
-- **Swagger UI**
+- Java 17 + Spring Boot 3
+- Spring Security + CORS
+- REST + DTO Pattern
+- Docker
 
-## Project Structure
-src/main/java/com/claimai/
-├── ClaimAiApplication.java
-├── config/
-│   ├── SecurityConfig.java
-│   └── SwaggerConfig.java
-├── controller/
-│   └── ClaimController.java
-├── dto/
-│   ├── ClaimRequest.java
-│   └── ClaimResponse.java
-├── service/
-│   └── ClaimService.java
-└── ...
+## API Endpoints
 
-## How to Run Locally
+- `POST /api/claims/analyze` → Multi-Agent Analysis
+- `GET /api/claims/health`
 
-### Using Docker Compose (Recommended)
-docker-compose up --build
-##Or Run with Maven
+## Run Locally
+
 ```bash
-mvn spring-boot:run
-##api endpoints
-Method,Endpoint,Description
-POST,/api/claims/analyze,Analyze claim with AI Agents
-GET,/api/claims/health,Health check
-GET,/swagger-ui.html,Swagger UI Documentation
+docker-compose up --build
+
+---
+
+### 3. `claim-ai-ai-service` README.md
+
+```markdown
+# ClaimAI AI Service (Python)
+
+Python-based Multi-Agent AI Microservice for intelligent claim analysis.
+
+## Features
+
+- Multi-Agent Architecture (4 specialized agents)
+- Intake Agent, Fraud Agent, Policy Agent, Validation Agent
+- FastAPI backend
+- Easy integration with Java Spring Boot
+
+## Tech Stack
+
+- Python 3.11
+- FastAPI
+- Pydantic
+- Docker
+
+## Endpoints
+
+- `POST /orchestra/analyze` → Multi-Agent Analysis
+- `GET /health`
+
+## Run Locally
+
+```bash
+pip install -r requirements.txt
+uvicorn main:app --reload
+##Or with Docker:
+docker build -t claim-ai-ai-service .
+docker run -p 8000:8000 claim-ai-ai-service
